@@ -1,0 +1,7 @@
+{
+	"environment":"delta",
+	"collectionName":"SampleTest.json",
+	"testData":"SampleData.csv",
+	"testCases":"3",
+	"reporters":["cli","html"]
+}

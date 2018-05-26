@@ -1,0 +1,13 @@
+{
+  "name": "RESTAPI-POSTMAN",
+  "version": "1.0.0",
+  "description": "API testing with POSTAMAN",
+  "author": "Ganesh Karamala",
+  "main": "postman.js",
+  "dependencies": {
+    "newman": "3.9.4"
+  },
+  "preferGlobal": true,
+  "private": true,
+  "license": "MIT"
+}

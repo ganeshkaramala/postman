@@ -1,0 +1,45 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Using data files",
+		"_postman_id": "5d604721-fce3-a131-635c-fbbf5744a169",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests['Response has data value'] = jsonData.form.foo?true:false"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "postman-echo.com/{{path}}",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foo",
+							"value": "{{value}}",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
