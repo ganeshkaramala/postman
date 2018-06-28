@@ -1,21 +1,25 @@
-var newman = require('newman'),
+const newman = require('newman'),
 path = require('path'),
-config = require(__dirname + '/config.json');
+config = require(__dirname + '/config.json'),
+fs = require('fs');
 
-var environmentFolder = __dirname+'/'+config.environment+'/';
+const environmentFolder = __dirname+'/'+config.environment+'/';
+const isDirectory = source => lstatSync(source).isDirectory();
+const getDirectories =  srcPath => fs.readdirSync(srcPath).filter(file => fs.statSync(path.join(srcPath, file)).isDirectory())
+const collections =  getDirectories(environmentFolder) ;
 
-var options  = {
+
+collections.forEach(  function( name ){
+	var options  = {
 	"globals":path.join( __dirname+'/globals.json'),
-	"environment": path.join(environmentFolder+config.environment+'.json'),
-    "collection": require(environmentFolder+config.collectionName),
-	"iterationData": path.join(environmentFolder+config.testData),
-	"iterationCount":config.testCases,
+	"environment": path.join(environmentFolder+'/'+config.environment+'.json'),
+    "collection": require(environmentFolder+name+'/collection.json'),
+	"iterationData": path.join(environmentFolder+name+'/data.csv'),
 	"reporters": config.reporters,
-	"reporter": { html : { export : './reports/report.html', template: './reports/template-default.hbs' } }
-};
- 
-
-newman.run( options , function (err) {
-    if (err) { throw err; }
-    console.log('collection run complete!');
+	"reporter": { html : { export : './reports/'+config.environment+'/'+name+'/'+'report.html', template: './reports/template-default.hbs' } }
+	};
+	newman.run( options , function (err) {
+		if (err) { throw err; }
+			console.log(name+' collection execution complete!');
+	});
 });
